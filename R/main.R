@@ -2,7 +2,7 @@
 library(tidyverse)
 
 
-HubeiEng_path = "/Users/apple/Desktop/XuenCov/HubeiEng.xlsx"
+HubeiEng_path = "/Users/apple/Desktop/XuenCov/Coronavirus-Disease-2019/HubeiEng.xlsx"
 HubeiEng = readxl::read_excel(HubeiEng_path, col_names = TRUE)
 
 
