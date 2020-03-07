@@ -1,10 +1,17 @@
 ### devtools::install_github("tidyverse/readxl")
 library(tidyverse)
 
-
+# HubeiEng: hard code dataset with English city names and column names
 HubeiEng_path = "/Users/apple/Desktop/XuenCov/Coronavirus-Disease-2019/HubeiEng.xlsx"
 HubeiEng = readxl::read_excel(HubeiEng_path, col_names = TRUE)
 
+### [Mar.4th] Strategy: encapsulate in a function to realize the following function: input a city name, returns the desired subset and the plot.
+
+
+#######################
+###  Wuhan example
+
+# data set [Wuhan]: simple filter
 
 Wuhan <- 
   HubeiEng %>%
@@ -16,19 +23,18 @@ Wuhan <-
 
 
 ######################################
-### parse time: format not ready to plot
+### create the new column "Day" as the x-axis variable
 
+# original raw time not presentable.
 
 library(lubridate)
-
 Wuhan_Day <- 
   Wuhan %>%
   mutate(yearDay = yday(Time), Day = strftime(Time, "%m/%d"))  # yday: year day
 
 
 ######################## 
-# scatterplot 1
-
+# scatterplot 1: 
 
 # Confirmed vs. Day
 ggplot(data = Wuhan_Day) +
@@ -80,6 +86,7 @@ lastMeasureIndex <- c(lastMeasureIndex, 1)  # add the latest measurement (the fi
 Wuhan_Day_Xue <- Wuhan_Day[lastMeasureIndex,]
 
 
+#############
 
 ggplot(data = Wuhan_Day_Xue) +
   geom_point(mapping = aes(x = Day, y = Confirmed))
